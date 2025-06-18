@@ -39,6 +39,7 @@ def load_data():
         "bookTime": "10:00-20:00",
         "bookTeacher": "Ms Tse",
         "bookSubject": "Singing Performance",
+        "bookClass": "5E",
         "bookRemarks": "好好聽"
       },
     ])
@@ -101,7 +102,7 @@ def show_bookings():
     i += 1
     print(f"  {i}. {_get_classroom_by_id(booking['roomID'])['roomName']} - {booking['roomID']}")
     print(f"     Date: {booking['bookDate']}, Time: {booking['bookTime']}")
-    print(f"     Booked by: {booking['bookTeacher']} for {booking['bookSubject']} with class {booking['bookClass']})") 
+    print(f"     Booked by: {booking['bookTeacher']} for {booking['bookSubject']} (with class {booking['bookClass']})") 
     print(f"     Remarks: {booking.get('bookRemarks', 'N/A')}") # .get can handle missing keys
   print("----------------------------")
 
@@ -135,7 +136,8 @@ def book_classroom():
       "bookTime": bookTime,
       "bookTeacher": bookTeacher,
       "bookSubject": bookSubject,
-      "bookClass": bookClass # Add class name to booking
+      "bookClass": bookClass, # Add class name to booking
+      "bookRemarks": bookRemarks
     }
     bookings.append(new_booking)
     save_data()
@@ -232,9 +234,8 @@ def cancel_booking():
     if 0 <= booking_index < len(bookings):
       canceled_booking = bookings.pop(booking_index)
       save_data()
-      room = _get_classroom_by_id(canceled_booking['classroom_id'])
-      room_name = room['name'] if room else "Unknown Classroom"
-      print(f"\nBooking for {room_name} on {canceled_booking['date']} {canceled_booking['time_slot']} by {canceled_booking['teacher']} has been cancelled.")
+      roomName = _get_classroom_by_id(canceled_booking['roomID'])['roomName']
+      print(f"\nBooking for {roomName} on {canceled_booking['bookDate']} {canceled_booking['bookTime']} by {canceled_booking['bookTeacher']} has been cancelled.")
     else:
       print("Invalid booking number.")
   except ValueError:

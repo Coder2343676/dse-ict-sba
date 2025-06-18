@@ -34,32 +34,8 @@
       "bookTime": "10:00-20:00",
       "bookTeacher": "Ms Tse",
       "bookSubject": "Singing Performance",
-      "bookClass": "All",
+      "bookClass": "5E",
       "bookRemarks": "\u597d\u597d\u807d"
-    },
-    {
-      "roomID": "D01",
-      "bookDate": "2025-12-12",
-      "bookTime": "09:00-23:00",
-      "bookTeacher": "Johnny",
-      "bookSubject": "Physics",
-      "class_name": "3E"
-    },
-    {
-      "roomID": "C01",
-      "bookDate": "2025-12-13",
-      "bookTime": "00:00-22:00",
-      "bookTeacher": "john",
-      "bookSubject": "english",
-      "class_name": "3e"
-    },
-    {
-      "roomID": "C01",
-      "bookDate": "2025-12-12",
-      "bookTime": "21:00-23:00",
-      "bookTeacher": "john",
-      "bookSubject": "eng",
-      "class_name": "3e"
     }
   ]
 }
