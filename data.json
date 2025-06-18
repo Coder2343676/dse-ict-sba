@@ -1,29 +1,29 @@
 {
   "classrooms": [
     {
-      "id": "C101",
-      "name": "Science Lab",
-      "capacity": 30
+      "id": "C01",
+      "name": "Classroom 1A",
+      "capacity": 35
     },
     {
-      "id": "C102",
-      "name": "Art Studio",
-      "capacity": 25
+      "id": "C02",
+      "name": "Classroom 1B",
+      "capacity": 35
     },
     {
-      "id": "C201",
-      "name": "Lecture Hall 1",
+      "id": "C03",
+      "name": "Classroom 1C",
+      "capacity": 35
+    },
+    {
+      "id": "D01",
+      "name": "Hall",
+      "capacity": 1200
+    },
+    {
+      "id": "D02",
+      "name": "Covered Playground",
       "capacity": 100
-    },
-    {
-      "id": "C202",
-      "name": "Computer Lab",
-      "capacity": 40
-    },
-    {
-      "id": "C301",
-      "name": "Meeting Room A",
-      "capacity": 10
     }
   ],
   "bookings": []

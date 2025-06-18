@@ -16,12 +16,16 @@ def load_data():
       bookings = data.get('bookings', [])
     print(f"Data loaded from {DATA_FILE}")
   else:
-    print(f"No data file found ({DATA_FILE}). Starting with empty data.")
     # Initialize some default classrooms if no file exists
+    print(f"No data file found ({DATA_FILE}). Starting with empty data.")
     classrooms.extend([
-      {"id": "C00", "name": "Test", "capacity": 30}
+      {"id": "C01", "name": "Classroom 1A", "capacity": 35},
+      {"id": "C02", "name": "Classroom 1B", "capacity": 35},
+      {"id": "C03", "name": "Classroom 1C", "capacity": 35},
+      {"id": "D01", "name": "Hall", "capacity": 1200},
+      {"id": "D02", "name": "Covered Playground", "capacity": 100},
     ])
-    print("Default classrooms added. You can add/remove more via the admin menu.")
+    print("Default classrooms added. You can edit the list via the admin menu.")
     save_data() # Save initial data
 
 def save_data():
