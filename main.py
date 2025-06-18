@@ -16,14 +16,26 @@ def load_data():
       bookings = data.get('bookings', [])
     print(f"Data loaded from {DATA_FILE}")
   else:
-    # Initialize some default classrooms if no file exists
+    # Initialize some default stuff if no file exists
     print(f"No data file found ({DATA_FILE}). Starting with empty data.")
     classrooms.extend([
-      {"id": "C01", "name": "Classroom 1A", "capacity": 35},
-      {"id": "C02", "name": "Classroom 1B", "capacity": 35},
-      {"id": "C03", "name": "Classroom 1C", "capacity": 35},
-      {"id": "D01", "name": "Hall", "capacity": 1200},
-      {"id": "D02", "name": "Covered Playground", "capacity": 100},
+      {"roomID": "C01", "roomName": "Classroom 1A", "roomCapacity": 35},
+      {"roomID": "C02", "roomName": "Classroom 1B", "roomCapacity": 35},
+      {"roomID": "C03", "roomName": "Classroom 1C", "roomCapacity": 35},
+      {"roomID": "D01", "roomName": "Hall", "roomCapacity": 1200},
+      {"roomID": "D02", "roomName": "Covered Playground", "roomCapacity": 100},
+    ])
+    bookings.extend([
+      {
+        "roomID": "D02",
+        "roomName": "Covered Playground",
+        "bookDate": "2025-10-15",
+        "bookTime": "10:00-20:00",
+        "bookTeacher": "Ms Tse",
+        "bookSubject": "Singing Performance",
+        "bookClass": "All",
+        "bookRemarks": "好好聽"
+      },
     ])
     print("Default classrooms added. You can edit the list via the admin menu.")
     save_data() # Save initial data
@@ -66,11 +78,14 @@ def main_menu():
       break
     else:
       print("Invalid choice. Please try again.")
+    
+    input("\nPress Enter to continue...")
+
 
 def show_classrooms():
   print("\n--- Available Classrooms ---")
   for room in classrooms:
-    print(f"  ID: {room['id']}, Name: {room['name']}, Capacity: {room['capacity']}")
+    print(f"  ID: {room['roomID']}, Name: {room['roomName']}, Capacity: {room['roomCapacity']}")
   print("----------------------------")
 
 def show_bookings():
@@ -80,9 +95,10 @@ def show_bookings():
   
   print("\n----- Current Bookings -----")
   for booking in bookings:
-    print(f"  {booking['name']} ({booking['id']})")
-    print(f"    Date: {booking['date']}, Time: {booking['time']}")
-    print(f"    Booked by: {booking['teacher']} for {booking['subject']} (Class: {booking.get('class_name', 'N/A')})")
+    print(f"  {booking['roomName']} ({booking['roomID']})")
+    print(f"    Date: {booking['bookDate']}, Time: {booking['bookTime']}")
+    print(f"    Booked by: {booking['bookTeacher']} for {booking['bookSubject']} (Class: {booking.get('bookClass', 'N/A')})")
+    print(f"    Remarks: {booking['bookRemarks']}")
   print("----------------------------")
 
 
