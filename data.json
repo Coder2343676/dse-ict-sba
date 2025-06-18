@@ -1,0 +1,30 @@
+{
+  "classrooms": [
+    {
+      "id": "C101",
+      "name": "Science Lab",
+      "capacity": 30
+    },
+    {
+      "id": "C102",
+      "name": "Art Studio",
+      "capacity": 25
+    },
+    {
+      "id": "C201",
+      "name": "Lecture Hall 1",
+      "capacity": 100
+    },
+    {
+      "id": "C202",
+      "name": "Computer Lab",
+      "capacity": 40
+    },
+    {
+      "id": "C301",
+      "name": "Meeting Room A",
+      "capacity": 10
+    }
+  ],
+  "bookings": []
+}

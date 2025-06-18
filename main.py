@@ -3,6 +3,7 @@ import datetime
 import os
 
 # INIT
+DATA_FILE = 'data.json'
 classrooms = [] 
 bookings = [] 
 
