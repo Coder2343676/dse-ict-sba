@@ -42,8 +42,8 @@ def main_menu():
   while True:
     print("\n===== CWY Booking System =====")
     print("1. Show Classrooms")         
-    print("2. Book Classroom")              
-    print("3. Show Bookings")              
+    print("2. Show Bookings")              
+    print("3. Book Classroom")              
     print("4. Cancel Booking")              
     print("5. [ADMIN] Edit Classrooms")       
     print("6. Exit")
@@ -52,22 +52,38 @@ def main_menu():
     choice = input("Enter your choice: ").strip()
 
     if choice == '1':
-      show_classrooms() # The existing function that shows classroom details
+      show_classrooms() 
     elif choice == '2':
-      book_classroom()
+      show_bookings() 
     elif choice == '3':
-      show_bookings() # The existing function that shows all bookings
+      book_classroom()
     elif choice == '4':
       cancel_booking()
     elif choice == '5':
-      admin_edit_classrooms() # The existing function for admin options (add/remove classrooms)
+      admin_edit_classrooms() 
     elif choice == '6':
       print("Exiting CWY Booking System. Goodbye!")
       break
     else:
       print("Invalid choice. Please try again.")
 
+def show_classrooms():
+  print("\n--- Available Classrooms ---")
+  for room in classrooms:
+    print(f"  ID: {room['id']}, Name: {room['name']}, Capacity: {room['capacity']}")
+  print("----------------------------")
 
+def show_bookings():
+  if not bookings:
+    print("\nNo bookings yet.")
+    return
+  
+  print("\n----- Current Bookings -----")
+  for booking in bookings:
+    print(f"  {booking['name']} ({booking['id']})")
+    print(f"    Date: {booking['date']}, Time: {booking['time']}")
+    print(f"    Booked by: {booking['teacher']} for {booking['subject']} (Class: {booking.get('class_name', 'N/A')})")
+  print("----------------------------")
 
 
 if __name__ == "__main__":

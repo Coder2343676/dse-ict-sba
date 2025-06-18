@@ -1,0 +1,40 @@
+{
+  "classrooms": [
+    {
+      "id": "C01",
+      "name": "Classroom 1A",
+      "capacity": 35
+    },
+    {
+      "id": "C02",
+      "name": "Classroom 1B",
+      "capacity": 35
+    },
+    {
+      "id": "C03",
+      "name": "Classroom 1C",
+      "capacity": 35
+    },
+    {
+      "id": "D01",
+      "name": "Hall",
+      "capacity": 1200
+    },
+    {
+      "id": "D02",
+      "name": "Covered Playground",
+      "capacity": 100
+    }
+  ],
+  "bookings": [
+    {
+      "id": "D02",
+      "name": "Covered Playground",
+      "date": "2025-10-15",
+      "time": "10:00-20:00",
+      "teacher": "Ms Tse",
+      "subject": "Singing Performance",
+      "class": "All"
+    }
+  ]
+}
