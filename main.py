@@ -39,7 +39,6 @@ def load_data():
         "bookTime": "10:00-20:00",
         "bookTeacher": "Ms Tse",
         "bookSubject": "Singing Performance",
-        "bookClass": "All",
         "bookRemarks": "好好聽"
       },
     ])
@@ -98,12 +97,15 @@ def show_bookings():
     print("\nNo bookings yet.")
     return
   
+  i = 0
+
   print("\n----- Current Bookings -----")
   for booking in bookings:
-    print(f"  {booking['roomID']} ({_get_classroom_by_id(booking['roomID'])['roomName']})")
-    print(f"    Date: {booking['bookDate']}, Time: {booking['bookTime']}")
-    print(f"    Booked by: {booking['bookTeacher']} for {booking['bookSubject']} (Class: {booking.get('bookClass', 'N/A')})")
-    print(f"    Remarks: {booking.get('bookRemarks', 'N/A') or 'N/A'}")
+    i += 1
+    print(f"  {i}. {_get_classroom_by_id(booking['roomID'])['roomName']} - {booking['roomID']}")
+    print(f"     Date: {booking['bookDate']}, Time: {booking['bookTime']}")
+    print(f"     Booked by: {booking['bookTeacher']} for {booking['bookSubject']}")
+    print(f"     Remarks: {booking.get('bookRemarks', 'N/A')}")
   print("----------------------------")
 
 def book_classroom():
@@ -221,6 +223,26 @@ def _is_time_overlap(start1_str, end1_str, start2_str, end2_str):
     # just in case
     print("Error: Invalid time format encountered during overlap check. Problem on our side.")
     return False
+
+def cancel_booking():
+  if not bookings:
+    print("\nNo bookings to cancel.")
+    return
+
+  show_bookings()
+  try:
+    booking_index = int(input("Enter the number of the booking to cancel: ")) - 1
+    if 0 <= booking_index < len(bookings):
+      canceled_booking = bookings.pop(booking_index)
+      save_data()
+      room = _get_classroom_by_id(canceled_booking['classroom_id'])
+      room_name = room['name'] if room else "Unknown Classroom"
+      print(f"\nBooking for {room_name} on {canceled_booking['date']} at {canceled_booking['time_slot']} by {canceled_booking['teacher']} (Class: {canceled_booking.get('class_name', 'N/A')}) has been cancelled.")
+    else:
+      print("Invalid booking number.")
+  except ValueError:
+    print("Invalid input. Please enter a number.")
+
 
 
 
