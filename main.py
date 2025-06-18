@@ -100,16 +100,16 @@ def show_bookings():
   
   print("\n----- Current Bookings -----")
   for booking in bookings:
-    print(f"  {booking['roomID']} ({booking['roomID']})")
+    print(f"  {booking['roomID']} ({_get_classroom_by_id(booking['roomID'])['roomName']})")
     print(f"    Date: {booking['bookDate']}, Time: {booking['bookTime']}")
     print(f"    Booked by: {booking['bookTeacher']} for {booking['bookSubject']} (Class: {booking.get('bookClass', 'N/A')})")
-    print(f"    Remarks: {booking['bookRemarks']}")
+    print(f"    Remarks: {booking.get('bookRemarks', 'N/A') or 'N/A'}")
   print("----------------------------")
 
 def book_classroom():
   show_classrooms()
 
-  roomID = input("Enter Classroom ID to book: ").strip().lower() # data sanitization
+  roomID = input("Enter Classroom ID to book: ").strip().upper()
   room = _get_classroom_by_id(roomID)
   if not room:
     print(f"Error: Classroom with ID '{roomID}' not found.")
@@ -146,7 +146,7 @@ def book_classroom():
 
 def _get_classroom_by_id(roomID):
   for room in classrooms:
-    if room['roomID'].lower() == roomID:
+    if room['roomID'] == roomID:
       return room
   return None
 
@@ -196,7 +196,7 @@ def _is_classroom_available(roomID, bookDate, bookTime):
 
   for booking in bookings:
     # Check if it's the same classroom and date
-    if booking['roomID'].lower() == roomID.lower() and booking['bookDate'] == bookDate:
+    if booking['roomID'] == roomID and booking['bookDate'] == bookDate:
       
       # Extract start and end times from the existing booking's bookTime
       existingMatch = TIME_SLOT_PATTERN.match(booking['bookTime'])
