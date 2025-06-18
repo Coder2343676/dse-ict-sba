@@ -58,12 +58,11 @@ def save_data():
 def main_menu():
   while True:
     print("\n===== CWY Booking System =====")
-    print("1. Show Classrooms")         
-    print("2. Show Bookings")              
-    print("3. Book Classroom")              
-    print("4. Cancel Booking")              
-    print("5. [ADMIN] Edit Classrooms")       # in future
-    print("6. Exit")
+    print("  1. Show Classrooms")         
+    print("  2. Show Bookings")              
+    print("  3. Book Classroom")              
+    print("  4. Cancel Booking")              
+    print("  5. Exit")
     print("==============================")
 
     choice = input("Enter your choice: ").strip()
@@ -77,8 +76,6 @@ def main_menu():
     elif choice == '4':
       cancel_booking()
     elif choice == '5':
-      admin_edit_classrooms() 
-    elif choice == '6':
       print("Exiting CWY Booking System. Goodbye!")
       break
     else:
@@ -104,8 +101,8 @@ def show_bookings():
     i += 1
     print(f"  {i}. {_get_classroom_by_id(booking['roomID'])['roomName']} - {booking['roomID']}")
     print(f"     Date: {booking['bookDate']}, Time: {booking['bookTime']}")
-    print(f"     Booked by: {booking['bookTeacher']} for {booking['bookSubject']}")
-    print(f"     Remarks: {booking.get('bookRemarks', 'N/A')}")
+    print(f"     Booked by: {booking['bookTeacher']} for {booking['bookSubject']} with class {booking['bookClass']})") 
+    print(f"     Remarks: {booking.get('bookRemarks', 'N/A')}") # .get can handle missing keys
   print("----------------------------")
 
 def book_classroom():
@@ -138,7 +135,7 @@ def book_classroom():
       "bookTime": bookTime,
       "bookTeacher": bookTeacher,
       "bookSubject": bookSubject,
-      "class_name": bookClass # Add class name to booking
+      "bookClass": bookClass # Add class name to booking
     }
     bookings.append(new_booking)
     save_data()
@@ -237,7 +234,7 @@ def cancel_booking():
       save_data()
       room = _get_classroom_by_id(canceled_booking['classroom_id'])
       room_name = room['name'] if room else "Unknown Classroom"
-      print(f"\nBooking for {room_name} on {canceled_booking['date']} at {canceled_booking['time_slot']} by {canceled_booking['teacher']} (Class: {canceled_booking.get('class_name', 'N/A')}) has been cancelled.")
+      print(f"\nBooking for {room_name} on {canceled_booking['date']} {canceled_booking['time_slot']} by {canceled_booking['teacher']} has been cancelled.")
     else:
       print("Invalid booking number.")
   except ValueError:
