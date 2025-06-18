@@ -115,9 +115,28 @@ def book_classroom():
     print(f"Error: Classroom with ID '{roomID}' not found.")
     return
 
-  bookDate = _get_valid_date_input()
-  bookTime = _get_valid_time_slot_input()
+  isRecurring = input("Book a recurring date once a week? (y/n): ").strip().lower() in ['yes', 'y']
 
+  if isRecurring:
+    print("You are booking a recurring date once a week.")
+    startDate = _get_valid_date_input("Enter start date (YYYY-MM-DD): ")
+    endDate = _get_valid_date_input("Enter end date (YYYY-MM-DD): ")
+    if startDate > endDate:
+      print("Error: Start date cannot be after end date.")
+      return
+    bookDates = []
+    current_date = datetime.datetime.strptime(startDate, DATE_FORMAT).date()
+    end_date = datetime.datetime.strptime(endDate, DATE_FORMAT).date()
+    while current_date <= end_date:
+      bookDates.append(current_date.strftime(DATE_FORMAT))
+      current_date += datetime.timedelta(days=7)
+    weekday = datetime.datetime.strptime(startDate, DATE_FORMAT).strftime('%A')
+    print(f"Recurring booking dates: ({weekday}) {', '.join(bookDates)}")
+  else:
+    print("You are booking a single date.")
+    bookDate = _get_valid_date_input()
+    
+  bookTime = _get_valid_time_slot_input()
   bookTeacher = input("Enter Teacher's Name: ").strip()
   bookSubject = input("Enter Subject Name: ").strip()
   bookClass = input("Enter Class Name (eg 5E): ").strip()
@@ -129,21 +148,41 @@ def book_classroom():
     print("Teacher name, subject, and class name cannot be empty.")
     return
 
-  if _is_classroom_available(roomID, bookDate, bookTime):
-    new_booking = {
-      "roomID": roomID,
-      "bookDate": bookDate,
-      "bookTime": bookTime,
-      "bookTeacher": bookTeacher,
-      "bookSubject": bookSubject,
-      "bookClass": bookClass, # Add class name to booking
-      "bookRemarks": bookRemarks
-    }
-    bookings.append(new_booking)
+  if isRecurring:
+    print("\n")
+    for bookDate in bookDates:
+      if _is_classroom_available(roomID, bookDate, bookTime):
+        new_booking = {
+          "roomID": roomID,
+          "bookDate": bookDate,
+          "bookTime": bookTime,
+          "bookTeacher": bookTeacher,
+          "bookSubject": bookSubject,
+          "bookClass": bookClass, # Add class name to booking
+          "bookRemarks": bookRemarks
+        }
+        bookings.append(new_booking)
+        print(f"Successfully booked {roomID} for {bookDate} at {bookTime}.")
+      else:
+        print(f"Error: {roomID} is already booked for {bookDate} during {bookTime} (overlap detected).")
+        continue
     save_data()
-    print(f"\nSuccessfully booked {roomID} for {bookDate} at {bookTime}.")
   else:
-    print(f"\nError: {roomID} is already booked for {bookDate} during {bookTime} (overlap detected).")
+    if _is_classroom_available(roomID, bookDate, bookTime):
+      new_booking = {
+        "roomID": roomID,
+        "bookDate": bookDate,
+        "bookTime": bookTime,
+        "bookTeacher": bookTeacher,
+        "bookSubject": bookSubject,
+        "bookClass": bookClass, # Add class name to booking
+        "bookRemarks": bookRemarks
+      }
+      bookings.append(new_booking)
+      save_data()
+      print(f"\nSuccessfully booked {roomID} for {bookDate} at {bookTime}.")
+    else:
+      print(f"\nError: {roomID} is already booked for {bookDate} during {bookTime} (overlap detected).")
 
 def _get_classroom_by_id(roomID):
   for room in classrooms:
