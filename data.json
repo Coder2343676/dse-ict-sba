@@ -16,6 +16,21 @@
       "roomCapacity": 35
     },
     {
+      "roomID": "C11",
+      "roomName": "Classroom 2A",
+      "roomCapacity": 35
+    },
+    {
+      "roomID": "C12",
+      "roomName": "Classroom 2B",
+      "roomCapacity": 35
+    },
+    {
+      "roomID": "C13",
+      "roomName": "Classroom 2C",
+      "roomCapacity": 35
+    },
+    {
       "roomID": "D01",
       "roomName": "Hall",
       "roomCapacity": 1200
@@ -24,18 +39,34 @@
       "roomID": "D02",
       "roomName": "Covered Playground",
       "roomCapacity": 100
+    },
+    {
+      "roomID": "D03",
+      "roomName": "InnoHub",
+      "roomCapacity": 40
     }
   ],
-  "bookings": [
+  "bookings": [],
+  "users": [
     {
-      "roomID": "D02",
-      "roomName": "Covered Playground",
-      "bookDate": "2025-10-15",
-      "bookTime": "10:00-20:00",
-      "bookTeacher": "Ms Tse",
-      "bookSubject": "Singing Performance",
-      "bookClass": "5E",
-      "bookRemarks": "\u597d\u597d\u807d"
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "username": "t_wkw",
+      "password": "teacher123",
+      "role": "teacher"
+    },
+    {
+      "username": "t_tyy",
+      "password": "teacher123",
+      "role": "teacher"
+    },
+    {
+      "username": "s20200073",
+      "password": "student123",
+      "role": "student"
     }
   ]
 }
