@@ -28,8 +28,12 @@ def load_data():
       {"roomID": "C01", "roomName": "Classroom 1A", "roomCapacity": 35},
       {"roomID": "C02", "roomName": "Classroom 1B", "roomCapacity": 35},
       {"roomID": "C03", "roomName": "Classroom 1C", "roomCapacity": 35},
+      {"roomID": "C11", "roomName": "Classroom 2A", "roomCapacity": 35},
+      {"roomID": "C12", "roomName": "Classroom 2B", "roomCapacity": 35},
+      {"roomID": "C13", "roomName": "Classroom 2C", "roomCapacity": 35},
       {"roomID": "D01", "roomName": "Hall", "roomCapacity": 1200},
       {"roomID": "D02", "roomName": "Covered Playground", "roomCapacity": 100},
+      {"roomID": "D03", "roomName": "InnoHub", "roomCapacity": 40},
     ])
     bookings.extend([
       {
