@@ -46,7 +46,18 @@
       "roomCapacity": 40
     }
   ],
-  "bookings": [],
+  "bookings": [
+    {
+      "roomID": "D01",
+      "bookDate": "2025-12-12",
+      "bookTime": "09:00-12:00",
+      "bookUsername": "t_tyy",
+      "bookTeacher": "Ms Tse",
+      "bookSubject": "Chinese",
+      "bookClass": "5F",
+      "bookRemarks": ""
+    }
+  ],
   "users": [
     {
       "username": "admin",

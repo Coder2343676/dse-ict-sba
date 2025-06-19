@@ -11,7 +11,7 @@ TIME_SLOT_PATTERN = re.compile(r'^(\d{2}:\d{2})-(\d{2}:\d{2})$') # thank you htt
 classrooms = [] 
 bookings = [] 
 users = []
-
+currentUser = None
 def load_data():
   global classrooms, bookings, users
 
@@ -43,6 +43,7 @@ def load_data():
         "roomName": "Covered Playground",
         "bookDate": "2025-10-15",
         "bookTime": "10:00-20:00",
+        "bookUsername": "t_tyy",
         "bookTeacher": "Ms Tse",
         "bookSubject": "Singing Performance",
         "bookClass": "5E",
@@ -75,15 +76,16 @@ def login():
     username = input("Enter your username: ").strip()
     password = input("Enter your password: ").strip()
 
-    user = next((u for u in users if u['username'] == username and u['password'] == password), None)
+    global currentUser
+    currentUser = next((u for u in users if u['username'] == username and u['password'] == password), None)
     
-    if user:
-      print(f"Login successful! Welcome, {user['username']} ({user['role']})")
-      if user['role'] == 'admin':
+    if currentUser:
+      print(f"Login successful! Welcome, {currentUser['username']} ({currentUser['role']})")
+      if currentUser['role'] == 'admin':
         admin_menu()
-      elif user['role'] == 'teacher':
+      elif currentUser['role'] == 'teacher':
         teacher_menu()
-      elif user['role'] == 'student':
+      elif currentUser['role'] == 'student':
         student_menu()
       break
     else:
@@ -243,6 +245,7 @@ def book_classroom():
           "roomID": roomID,
           "bookDate": bookDate,
           "bookTime": bookTime,
+          "bookUsername": currentUser['username'], # Store the username of the person booking
           "bookTeacher": bookTeacher,
           "bookSubject": bookSubject,
           "bookClass": bookClass, # Add class name to booking
@@ -260,6 +263,7 @@ def book_classroom():
         "roomID": roomID,
         "bookDate": bookDate,
         "bookTime": bookTime,
+        "bookUsername": currentUser['username'], # Store the username of the person booking
         "bookTeacher": bookTeacher,
         "bookSubject": bookSubject,
         "bookClass": bookClass, # Add class name to booking
@@ -358,10 +362,15 @@ def cancel_booking():
   try:
     booking_index = int(input("Enter the number of the booking to cancel: ")) - 1
     if 0 <= booking_index < len(bookings):
-      canceled_booking = bookings.pop(booking_index)
-      save_data()
-      roomName = _get_classroom_by_id(canceled_booking['roomID'])['roomName']
-      print(f"\nBooking for {roomName} on {canceled_booking['bookDate']} {canceled_booking['bookTime']} by {canceled_booking['bookTeacher']} has been cancelled.")
+      canceled_booking = bookings[booking_index]
+      # Only allow if admin or teacher is the booker
+      if currentUser['role'] == 'admin' or (currentUser['role'] == 'teacher' and canceled_booking['bookUsername'].lower() == currentUser['username'].lower()):
+        bookings.pop(booking_index)
+        save_data()
+        roomName = _get_classroom_by_id(canceled_booking['roomID'])['roomName']
+        print(f"\nBooking for {roomName} on {canceled_booking['bookDate']} {canceled_booking['bookTime']} by {canceled_booking['bookTeacher']} has been cancelled.")
+      else:
+        print("You do not have permission to cancel this booking.")
     else:
       print("Invalid booking number.")
   except ValueError:
